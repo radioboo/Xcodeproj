@@ -388,7 +388,7 @@ module Xcodeproj
 
         def self.RubyStringToCFString(string)
           CFStringCreateWithCString(NULL,
-                                    Fiddle::Pointer[string.encode('UTF-8')],
+                                    Fiddle::Pointer[string.encode('UTF-8', string.encoding)],
                                     KCFStringEncodingUTF8)
         end
 
