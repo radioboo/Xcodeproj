@@ -387,8 +387,15 @@ module Xcodeproj
         end
 
         def self.RubyStringToCFString(string)
+          encoded = nil
+          begin
+            encoded = string.encode('UTF-8')
+          rescue Encoding::UndefinedConversionError => e
+            duplicate = string.dup
+            encoded = duplicate.force_encoding('UTF-8')
+          end
           CFStringCreateWithCString(NULL,
-                                    Fiddle::Pointer[string.encode('UTF-8')],
+                                    Fiddle::Pointer[encoded],
                                     KCFStringEncodingUTF8)
         end
 
